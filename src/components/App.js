@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 //import noImagePath from "../images/no-image.jpg";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,9 +7,11 @@ import PopupWithForm from "./PopupWithForm";
 
 function App() {
   //Popups state
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
+    React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
+    React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 
   //Popups handlers
   function handleEditAvatarClick() {
@@ -142,27 +143,6 @@ function App() {
           }
         />
       </div>
-      <template className="card-template">
-        <article className="card">
-          <img className="card__image" />
-          <div className="card__caption">
-            <h2 className="card__title"></h2>
-            <div className="card__like">
-              <button
-                className="card__like-button"
-                type="button"
-                aria-label="Поставить лайк"
-              ></button>
-              <div className="card__like-counter">0</div>
-            </div>
-          </div>
-          <button
-            className="card__trash-button"
-            type="button"
-            aria-label="Удалить карточку"
-          ></button>
-        </article>
-      </template>
     </>
   );
 }
