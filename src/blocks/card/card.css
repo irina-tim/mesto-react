@@ -1,0 +1,11 @@
+.card {
+  width: 282px;
+  min-height: 361px;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 0;
+  overflow: hidden;
+  align-self: center;
+  justify-self: center;
+  position: relative;
+}

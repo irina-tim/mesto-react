@@ -1,0 +1,6 @@
+.popup__input-error {
+  font: normal 12px/15px "Inter", Arial, sans-serif;
+  color: red;
+  margin: 7px 0 0 0;
+  opacity: 0;
+}

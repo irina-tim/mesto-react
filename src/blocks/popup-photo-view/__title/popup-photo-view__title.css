@@ -1,0 +1,7 @@
+.popup-photo-view__title {
+  position: absolute;
+  bottom: -34px;
+  left: 0;
+  font: normal 12px/15px "Inter", Arial, sans-serif;
+  color: white;
+}

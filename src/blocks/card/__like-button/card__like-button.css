@@ -1,0 +1,15 @@
+.card__like-button {
+  display: block;
+  background-image: url(../../../images/cards-heart-empty.svg);
+  width: 22px;
+  height: 19px;
+  transition: opacity 0.2s ease;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
+}

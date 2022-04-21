@@ -1,0 +1,10 @@
+.popup-photo-view__close-button {
+  left: auto;
+  right: -40px;
+}
+
+@media screen and (max-width: 600px) {
+  .popup-photo-view__close-button {
+    right: 0;
+  }
+}

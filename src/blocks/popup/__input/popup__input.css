@@ -1,0 +1,21 @@
+.popup__input {
+  width: 358px;
+  height: 27px;
+  margin: 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgba(00, 00, 00, 0.2);
+  font: normal 14px/17px "Inter", Arial, sans-serif;
+  padding: 0;
+}
+
+.popup__input::placeholder {
+  color: #c4c4c4;
+  font: normal 14px/17px "Inter", Arial, sans-serif;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__input {
+    width: 238px;
+  }
+}

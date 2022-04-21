@@ -1,0 +1,8 @@
+.popup-photo-view__container {
+  background-color: white;
+  opacity: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
