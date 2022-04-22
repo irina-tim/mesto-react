@@ -3,9 +3,18 @@ function Card(card) {
     card.onCardClick(card);
   }
 
+  function handleTrashButtonClick() {
+    card.onTrashButtonClick();
+  }
+
   return (
-    <article className="card" onClick={handleClick}>
-      <img className="card__image" src={card.link} alt={card.name} />
+    <article className="card">
+      <img
+        className="card__image"
+        src={card.link}
+        alt={card.name}
+        onClick={handleClick}
+      />
       <div className="card__caption">
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
@@ -18,6 +27,7 @@ function Card(card) {
         </div>
       </div>
       <button
+        onClick={handleTrashButtonClick}
         className="card__trash-button"
         type="button"
         aria-label="Удалить карточку"

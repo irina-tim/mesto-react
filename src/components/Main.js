@@ -52,7 +52,12 @@ function Main(props) {
           aria-label="Карточки с фотографиями"
         >
           {cards.map((card) => (
-            <Card {...card} key={card._id} onCardClick={props.onCardClick} />
+            <Card
+              {...card}
+              key={card._id}
+              onCardClick={props.onCardClick}
+              onTrashButtonClick={props.onTrashButtonClick}
+            />
           ))}
         </section>
       </main>
