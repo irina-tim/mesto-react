@@ -1,6 +1,10 @@
 function Card(card) {
+  function handleClick() {
+    card.onCardClick(card);
+  }
+
   return (
-    <article className="card">
+    <article className="card" onClick={handleClick}>
       <img className="card__image" src={card.link} alt={card.name} />
       <div className="card__caption">
         <h2 className="card__title">{card.name}</h2>

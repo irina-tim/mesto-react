@@ -19,8 +19,6 @@ function Main(props) {
       .catch((err) => {
         console.log(err);
       });
-
-    //return - вызовется при закрытии(уничтожении)
   }, []);
 
   return (
@@ -54,7 +52,7 @@ function Main(props) {
           aria-label="Карточки с фотографиями"
         >
           {cards.map((card) => (
-            <Card {...card} key={card._id} />
+            <Card {...card} key={card._id} onCardClick={props.onCardClick} />
           ))}
         </section>
       </main>

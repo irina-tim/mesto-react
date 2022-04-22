@@ -1,10 +1,8 @@
-import React from "react";
-
 function PopupWithForm(props) {
   return (
     <div
       className={`popup popup-${props.name} 
-                  ${props.isOpened ? "popup_opened" : ""}`}
+                  ${props.isOpened && "popup_opened"}`}
     >
       <div className="popup__container">
         <h2 className="popup__title">{props.title}</h2>
@@ -18,7 +16,7 @@ function PopupWithForm(props) {
           onClick={props.onClose}
           className="popup__close"
           type="button"
-          aria-label="Закрыть окно редактирования профиля"
+          aria-label="Закрыть окно"
         ></button>
       </div>
     </div>

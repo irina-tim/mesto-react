@@ -1,9 +1,9 @@
 import React from "react";
-//import noImagePath from "../images/no-image.jpg";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
+import ImagePopup from "./ImagePopup";
 
 function App() {
   //Popups state
@@ -12,6 +12,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
     React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
 
   //Popups handlers
   function handleEditAvatarClick() {
@@ -26,10 +27,15 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  function handleCardClick(card) {
+    setSelectedCard(card);
+  }
+
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
+    setSelectedCard({});
   }
 
   return (
@@ -41,6 +47,7 @@ function App() {
           isOpened={isEditProfilePopupOpen}
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
         />
         <Footer />
         <PopupWithForm //Profile edit popup
@@ -57,7 +64,6 @@ function App() {
                   className="popup__input popup__input_type_name"
                   type="text"
                   name="name"
-                  //value=""
                   placeholder="Имя"
                   required
                   minLength="2"
@@ -71,7 +77,6 @@ function App() {
                   className="popup__input popup__input_type_description"
                   type="text"
                   name="description"
-                  //value=""
                   placeholder="Описание"
                   required
                   minLength="2"
@@ -96,7 +101,6 @@ function App() {
                   className="popup__input popup__input_type_card-title"
                   type="text"
                   name="title"
-                  //value=""
                   placeholder="Название"
                   required
                   minLength="2"
@@ -110,7 +114,6 @@ function App() {
                   className="popup__input popup__input_type_image-link"
                   type="url"
                   name="link"
-                  //value=""
                   placeholder="Ссылка на картинку"
                   required
                 />
@@ -133,7 +136,6 @@ function App() {
                   className="popup__input popup__input_type_avatar-link"
                   type="url"
                   name="link"
-                  //value=""
                   placeholder="Ссылка на новый аватар"
                   required
                 />
@@ -142,6 +144,7 @@ function App() {
             </>
           }
         />
+        <ImagePopup card={selectedCard} onClose={closeAllPopups} />
       </div>
     </>
   );
