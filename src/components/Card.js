@@ -1,10 +1,25 @@
+import React from "react";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
 function Card(card) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = card.owner._id === currentUser._id;
+  const trashButtonDisplay = `${isOwn ? "inline-block" : "none"}`;
+  const isLiked = card.likes.some((i) => i._id === currentUser._id);
+  const cardLikeButtonClassName = `card__like-button ${
+    isLiked ? "card__like-button_active" : ""
+  }`;
+
   function handleClick() {
     card.onCardClick(card);
   }
 
   function handleTrashButtonClick() {
     card.onTrashButtonClick();
+  }
+
+  function handleLikeClick() {
+    card.onCardLike(card);
   }
 
   return (
@@ -19,7 +34,8 @@ function Card(card) {
         <h2 className="card__title">{card.name}</h2>
         <div className="card__like">
           <button
-            className="card__like-button"
+            onClick={handleLikeClick}
+            className={cardLikeButtonClassName}
             type="button"
             aria-label="Поставить лайк"
           ></button>
@@ -31,6 +47,7 @@ function Card(card) {
         className="card__trash-button"
         type="button"
         aria-label="Удалить карточку"
+        style={{ display: trashButtonDisplay }}
       ></button>
     </article>
   );

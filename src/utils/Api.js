@@ -43,18 +43,22 @@ class Api {
     }).then(this._checkResponse);
   }
 
-  addLike(cardId) {
+  _addLike(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId + "/likes", {
       method: "PUT",
       headers: this._options.headers,
     }).then(this._checkResponse);
   }
 
-  removeLike(cardId) {
+  _removeLike(cardId) {
     return fetch(this._options.baseUrl + "/cards/" + cardId + "/likes", {
       method: "DELETE",
       headers: this._options.headers,
     }).then(this._checkResponse);
+  }
+
+  changeLikeCardStatus(cardId, isLiked) {
+    return isLiked ? this._addLike(cardId) : this._removeLike(cardId);
   }
 
   addNewCard(cardName, cardLink) {
