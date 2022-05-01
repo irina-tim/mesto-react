@@ -1,4 +1,10 @@
+import React from "react";
+
 function PopupWithForm(props) {
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onSubmit();
+  }
   return (
     <div
       className={`popup popup-${props.name} 
@@ -6,7 +12,7 @@ function PopupWithForm(props) {
     >
       <div className="popup__container">
         <h2 className="popup__title">{props.title}</h2>
-        <form className="popup__form" name={props.name}>
+        <form className="popup__form" name={props.name} onSubmit={handleSubmit}>
           {props.children}
           <button className="popup__submit-button" type="submit">
             {props.submitButtonText}

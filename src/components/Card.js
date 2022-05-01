@@ -15,7 +15,7 @@ function Card(card) {
   }
 
   function handleTrashButtonClick() {
-    card.onTrashButtonClick();
+    card.onTrashButtonClick(card);
   }
 
   function handleLikeClick() {

@@ -1,30 +1,9 @@
 import React from "react";
-import { api } from "../utils/Api";
 import Card from "./Card";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
-  const [cards, setCards] = React.useState([]);
   const currentUser = React.useContext(CurrentUserContext);
-
-  React.useEffect(() => {
-    Promise.all([api.getInitialCards()])
-      .then(([initialCards]) => {
-        setCards(initialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
-      const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
-      setCards(newCards);
-    });
-  }
-
   return (
     <>
       <main className="content">
@@ -55,13 +34,13 @@ function Main(props) {
           className="cards page__cards"
           aria-label="Карточки с фотографиями"
         >
-          {cards.map((card) => (
+          {props.cards.map((card) => (
             <Card
               {...card}
               key={card._id}
               onCardClick={props.onCardClick}
               onTrashButtonClick={props.onTrashButtonClick}
-              onCardLike={handleCardLike}
+              onCardLike={props.onCardLike}
             />
           ))}
         </section>

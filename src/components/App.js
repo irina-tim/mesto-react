@@ -6,6 +6,7 @@ import PopupWithForm from "./PopupWithForm";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import DeletionConfirmationPopup from "./DeletionConfirmationPopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -19,6 +20,19 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({});
   const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] =
     React.useState(false);
+
+  const [cards, setCards] = React.useState([]);
+  const [cardToRemove, setCardToRemove] = React.useState({});
+
+  React.useEffect(() => {
+    Promise.all([api.getInitialCards()])
+      .then(([initialCards]) => {
+        setCards(initialCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   //Popups handlers
   function handleEditAvatarClick() {
@@ -37,7 +51,21 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleCardTrashClick() {
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        const newCards = cards.map((c) => (c._id === card._id ? newCard : c));
+        setCards(newCards);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function handleCardTrashClick(card) {
+    setCardToRemove(card);
     setIsCardDeletePopupOpen(true);
   }
 
@@ -47,6 +75,18 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsCardDeletePopupOpen(false);
     setSelectedCard({});
+  }
+
+  function handleCardDelete() {
+    api
+      .deleteCard(cardToRemove._id)
+      .then(() => {
+        setCards(cards.filter((el) => el._id !== cardToRemove._id));
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   const [currentUser, setCurrentUser] = React.useState({});
@@ -78,6 +118,8 @@ function App() {
           onAddPlace={handleAddPlaceClick}
           onCardClick={handleCardClick}
           onTrashButtonClick={handleCardTrashClick}
+          cards={cards}
+          onCardLike={handleCardLike}
         />
         <Footer />
         <EditProfilePopup
@@ -124,12 +166,10 @@ function App() {
           onClose={closeAllPopups}
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
-        <PopupWithForm //Deletion confirmation popup
+        <DeletionConfirmationPopup
           isOpened={isCardDeletePopupOpen}
           onClose={closeAllPopups}
-          name={"deletion-confirmation"}
-          title={"Вы уверены?"}
-          submitButtonText={"Да"}
+          onSubmit={handleCardDelete}
         />
       </div>
     </CurrentUserContext.Provider>
