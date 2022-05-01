@@ -1,5 +1,3 @@
-import React from "react";
-
 function PopupWithForm(props) {
   function handleSubmit(e) {
     e.preventDefault();

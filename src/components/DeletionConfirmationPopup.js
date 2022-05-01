@@ -1,5 +1,4 @@
 import PopupWithForm from "./PopupWithForm";
-import React from "react";
 
 function DeletionConfirmationPopup(props) {
   return (

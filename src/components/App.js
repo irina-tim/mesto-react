@@ -7,6 +7,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import DeletionConfirmationPopup from "./DeletionConfirmationPopup";
+import AddPlacePopup from "./AddPlacePopup";
 import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
@@ -23,6 +24,9 @@ function App() {
 
   const [cards, setCards] = React.useState([]);
   const [cardToRemove, setCardToRemove] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [isLoadingCardDeletion, setisLoadingCardDeletion] =
+    React.useState(false);
 
   React.useEffect(() => {
     Promise.all([api.getInitialCards()])
@@ -85,15 +89,11 @@ function App() {
         setCards(cards.filter((el) => el._id !== cardToRemove._id));
         closeAllPopups();
       })
-      .then(() => setisLoadingCardDeletion(false))
       .catch((err) => {
         console.log(err);
-      });
+      })
+      .finally(() => setisLoadingCardDeletion(false));
   }
-
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [isLoadingCardDeletion, setisLoadingCardDeletion] =
-    React.useState(false);
 
   React.useEffect(() => {
     //setIsLoadingUserData(true);
@@ -129,40 +129,9 @@ function App() {
           isOpened={isEditProfilePopupOpen}
           onClose={closeAllPopups}
         />
-        <PopupWithForm //Add card popup
+        <AddPlacePopup
           isOpened={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-          name={"add-card"}
-          title={"Новое место"}
-          submitButtonText={"Сохранить"}
-          children={
-            <>
-              <div className="popup__field">
-                <input
-                  id="card-title-input"
-                  className="popup__input popup__input_type_card-title"
-                  type="text"
-                  name="title"
-                  placeholder="Название"
-                  required
-                  minLength="2"
-                  maxLength="30"
-                />
-                <span className="card-title-input-error popup__input-error"></span>
-              </div>
-              <div className="popup__field">
-                <input
-                  id="image-link-input"
-                  className="popup__input popup__input_type_image-link"
-                  type="url"
-                  name="link"
-                  placeholder="Ссылка на картинку"
-                  required
-                />
-                <span className="image-link-input-error popup__input-error"></span>
-              </div>
-            </>
-          }
         />
         <EditAvatarPopup
           isOpened={isEditAvatarPopupOpen}
