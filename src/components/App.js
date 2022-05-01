@@ -78,19 +78,22 @@ function App() {
   }
 
   function handleCardDelete() {
+    setisLoadingCardDeletion(true);
     api
       .deleteCard(cardToRemove._id)
       .then(() => {
         setCards(cards.filter((el) => el._id !== cardToRemove._id));
         closeAllPopups();
       })
+      .then(() => setisLoadingCardDeletion(false))
       .catch((err) => {
         console.log(err);
       });
   }
 
   const [currentUser, setCurrentUser] = React.useState({});
-  //const [isLoadingUserData, setIsLoadingUserData] = React.useState(false);
+  const [isLoadingCardDeletion, setisLoadingCardDeletion] =
+    React.useState(false);
 
   React.useEffect(() => {
     //setIsLoadingUserData(true);
@@ -170,6 +173,7 @@ function App() {
           isOpened={isCardDeletePopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
+          isLoading={isLoadingCardDeletion}
         />
       </div>
     </CurrentUserContext.Provider>

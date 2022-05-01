@@ -8,7 +8,7 @@ function DeletionConfirmationPopup(props) {
       onClose={props.onClose}
       name={"deletion-confirmation"}
       title={"Вы уверены?"}
-      submitButtonText={"Да"}
+      submitButtonText={props.isLoading ? "Удаление..." : "Да"}
       onSubmit={props.onSubmit}
     />
   );
