@@ -27,6 +27,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [isLoadingCardDeletion, setisLoadingCardDeletion] =
     React.useState(false);
+  const [isLoadingUserDataUpdate, setIsLoadingUserDataUpdate] =
+    React.useState(false);
 
   React.useEffect(() => {
     Promise.all([api.getInitialCards()])
@@ -95,8 +97,23 @@ function App() {
       .finally(() => setisLoadingCardDeletion(false));
   }
 
+  function handleUpdateUser({ name, about }) {
+    setIsLoadingUserDataUpdate(true);
+    api
+      .updateUserInfo(name, about)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoadingUserDataUpdate(false);
+      });
+  }
+
   React.useEffect(() => {
-    //setIsLoadingUserData(true);
     api
       .getUserData()
       .then((userData) => {
@@ -105,9 +122,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => {
-        //setIsLoadingUserData(false);
-      });
+      .finally(() => {});
   }, []);
 
   return (
@@ -128,6 +143,8 @@ function App() {
         <EditProfilePopup
           isOpened={isEditProfilePopupOpen}
           onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}
+          isLoading={isLoadingUserDataUpdate}
         />
         <AddPlacePopup
           isOpened={isAddPlacePopupOpen}
