@@ -1,3 +1,4 @@
+import React from "react";
 function ImagePopup({ card, onClose }) {
   return (
     <div
@@ -13,6 +14,9 @@ function ImagePopup({ card, onClose }) {
         <h2 className="popup-photo-view__title">{card.name}</h2>
         <button
           onClick={onClose}
+          style={{
+            display: Object.keys(card).length ? "inline-block" : "none",
+          }}
           className="popup__close popup-photo-view__close-button"
           type="button"
           aria-label="Закрыть окно просмотра фотографии"
