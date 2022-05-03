@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/mesto-react/static/css/main.abe822b8.css",
-    "main.js": "/mesto-react/static/js/main.e13497ac.js",
+    "main.js": "/mesto-react/static/js/main.1e8bf533.js",
     "static/js/787.5530211c.chunk.js": "/mesto-react/static/js/787.5530211c.chunk.js",
     "static/media/Inter-Medium.woff": "/mesto-react/static/media/Inter-Medium.9053572c46aeb4b16caa.woff",
     "static/media/Inter-Black.woff": "/mesto-react/static/media/Inter-Black.c6938660eec019fefd68.woff",
@@ -9,6 +9,7 @@
     "static/media/Inter-Medium.woff2": "/mesto-react/static/media/Inter-Medium.293fd13dbca5a3e450ef.woff2",
     "static/media/Inter-Black.woff2": "/mesto-react/static/media/Inter-Black.15ca31c0a2a68f76d2d1.woff2",
     "static/media/Inter-Regular.woff2": "/mesto-react/static/media/Inter-Regular.c8ba52b05a9ef10f4758.woff2",
+    "static/media/no-image.jpg": "/mesto-react/static/media/no-image.3d65c30c93d46903fa83.jpg",
     "static/media/header-logo.svg": "/mesto-react/static/media/header-logo.03b78ada3425e9132ff3.svg",
     "static/media/cards-heart-empty.svg": "/mesto-react/static/media/cards-heart-empty.87ed371465c7a6a1cd01.svg",
     "index.html": "/mesto-react/index.html",
@@ -19,11 +20,11 @@
     "static/media/popup-close-icon.svg": "/mesto-react/static/media/popup-close-icon.2ceb783afbab75916ddc.svg",
     "static/media/add-button-plus.svg": "/mesto-react/static/media/add-button-plus.d86bb2edc2f6eadb96b7.svg",
     "main.abe822b8.css.map": "/mesto-react/static/css/main.abe822b8.css.map",
-    "main.e13497ac.js.map": "/mesto-react/static/js/main.e13497ac.js.map",
+    "main.1e8bf533.js.map": "/mesto-react/static/js/main.1e8bf533.js.map",
     "787.5530211c.chunk.js.map": "/mesto-react/static/js/787.5530211c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.abe822b8.css",
-    "static/js/main.e13497ac.js"
+    "static/js/main.1e8bf533.js"
   ]
 }
