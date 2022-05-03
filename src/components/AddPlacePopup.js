@@ -1,6 +1,23 @@
+import React from "react";
 import PopupWithForm from "./PopupWithForm";
 
 function AddPlacePopup(props) {
+  const [cardTitle, setCardTitle] = React.useState("");
+  const [cardLink, setCardLink] = React.useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.onAddPlace({ title: cardTitle, link: cardLink });
+  }
+
+  function handleTitleChange(e) {
+    setCardTitle(e.target.value);
+  }
+
+  function handleLinkChange(e) {
+    setCardLink(e.target.value);
+  }
+
   return (
     <PopupWithForm
       isOpened={props.isOpened}
@@ -8,6 +25,7 @@ function AddPlacePopup(props) {
       name={"add-card"}
       title={"Новое место"}
       submitButtonText={"Сохранить"}
+      onSubmit={handleSubmit}
       children={
         <>
           <div className="popup__field">
@@ -20,6 +38,8 @@ function AddPlacePopup(props) {
               required
               minLength="2"
               maxLength="30"
+              onChange={handleTitleChange}
+              value={cardTitle}
             />
             <span className="card-title-input-error popup__input-error"></span>
           </div>
@@ -30,6 +50,8 @@ function AddPlacePopup(props) {
               type="url"
               name="link"
               placeholder="Ссылка на картинку"
+              onChange={handleLinkChange}
+              value={cardLink}
               required
             />
             <span className="image-link-input-error popup__input-error"></span>

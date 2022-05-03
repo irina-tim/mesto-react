@@ -124,6 +124,20 @@ function App() {
       });
   }
 
+  function handleAddPlaceSubmit({ title, link }) {
+    console.log(title);
+    console.log(link);
+    api
+      .addNewCard(title, link)
+      .then((newCard) => {
+        setCards([newCard, ...cards]);
+        closeAllPopups();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   React.useEffect(() => {
     api
       .getUserData()
@@ -160,6 +174,7 @@ function App() {
         <AddPlacePopup
           isOpened={isAddPlacePopupOpen}
           onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}
         />
         <EditAvatarPopup
           isOpened={isEditAvatarPopupOpen}
