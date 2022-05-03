@@ -16,7 +16,8 @@ function Card(card) {
     card.onCardClick(card);
   }
 
-  function handleTrashButtonClick() {
+  function handleTrashButtonClick(e) {
+    e.stopPropagation();
     card.onTrashButtonClick(card);
   }
 
