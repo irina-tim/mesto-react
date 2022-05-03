@@ -4,7 +4,7 @@ function PopupWithForm(props) {
       className={`popup popup-${props.name} 
                   ${props.isOpened && "popup_opened"}`}
     >
-      <div className="popup__container">
+      <div className="popup__container" onClick={(e) => e.stopPropagation()}>
         <h2 className="popup__title">{props.title}</h2>
         <form
           className="popup__form"

@@ -4,19 +4,35 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
+
+  function handleEditProfileButtonClick(e) {
+    e.stopPropagation();
+    props.onEditProfile();
+  }
+
+  function handleAddPlaceClick(e) {
+    e.stopPropagation();
+    props.onAddPlace();
+  }
+
+  function handleAvatarEditClick(e) {
+    e.stopPropagation();
+    props.onEditAvatar();
+  }
+
   return (
     <>
       <main className="content">
         <section className="profile page__profile">
           <div
             className="profile__avatar"
-            onClick={props.onEditAvatar}
+            onClick={handleAvatarEditClick}
             style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></div>
           <div className="profile__info">
             <h1 className="profile__title">{currentUser.name}</h1>
             <button
-              onClick={props.onEditProfile}
+              onClick={handleEditProfileButtonClick}
               className="profile__edit-button"
               type="button"
               aria-label="Редактировать профиль"
@@ -24,7 +40,7 @@ function Main(props) {
             <p className="profile__subtitle">{currentUser.about}</p>
           </div>
           <button
-            onClick={props.onAddPlace}
+            onClick={handleAddPlaceClick}
             className="profile__add-button"
             type="button"
             aria-label="Добавить карточку"

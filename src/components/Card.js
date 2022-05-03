@@ -11,7 +11,8 @@ function Card(card) {
     isLiked ? "card__like-button_active" : ""
   }`;
 
-  function handleClick() {
+  function handleClick(e) {
+    e.stopPropagation();
     card.onCardClick(card);
   }
 

@@ -159,9 +159,23 @@ function App() {
       .finally(() => {});
   }, []);
 
+  //Handle esc click
+  const closeByEsc = React.useCallback((event) => {
+    if (event.key === "Escape") {
+      closeAllPopups();
+    }
+  }, []);
+
+  React.useEffect(() => {
+    document.addEventListener("keydown", closeByEsc, false);
+    return () => {
+      document.removeEventListener("keydown", closeByEsc, false);
+    };
+  }, []);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
+      <div className="page" onClick={closeAllPopups}>
         <Header />
         <Main
           onEditAvatar={handleEditAvatarClick}
