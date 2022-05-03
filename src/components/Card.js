@@ -1,5 +1,6 @@
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import noImage from "../images/no-image.jpg";
 
 function Card(card) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -22,6 +23,10 @@ function Card(card) {
     card.onCardLike(card);
   }
 
+  function handleImageLoadingError(e) {
+    e.target.src = noImage;
+  }
+
   return (
     <article className="card">
       <img
@@ -29,6 +34,7 @@ function Card(card) {
         src={card.link}
         alt={card.name}
         onClick={handleClick}
+        onError={handleImageLoadingError}
       />
       <div className="card__caption">
         <h2 className="card__title">{card.name}</h2>

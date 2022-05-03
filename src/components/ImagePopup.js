@@ -1,5 +1,10 @@
 import React from "react";
+import noImage from "../images/no-image.jpg";
+
 function ImagePopup({ card, onClose }) {
+  function handleImageLoadingError(e) {
+    e.target.src = noImage;
+  }
   return (
     <div
       className={`popup popup-photo-view 
@@ -10,6 +15,7 @@ function ImagePopup({ card, onClose }) {
           className="popup-photo-view__image"
           src={card.link}
           alt={card.name}
+          onError={handleImageLoadingError}
         />
         <h2 className="popup-photo-view__title">{card.name}</h2>
         <button
