@@ -1,4 +1,3 @@
-import React from "react";
 import noImage from "../images/no-image.jpg";
 
 function ImagePopup({ card, onClose }) {

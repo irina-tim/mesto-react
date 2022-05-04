@@ -1,9 +1,9 @@
-import React from "react";
+import { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import noImage from "../images/no-image.jpg";
 
 function Card(card) {
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
   const isOwn = card.owner._id === currentUser._id;
   const trashButtonDisplay = `${isOwn ? "inline-block" : "none"}`;
   const isLiked = card.likes.some((i) => i._id === currentUser._id);

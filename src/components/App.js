@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Main from "./Main";
@@ -12,29 +12,21 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 function App() {
   //Popups state
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] =
-    React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [isCardDeletePopupOpen, setIsCardDeletePopupOpen] = useState(false);
 
-  const [cards, setCards] = React.useState([]);
-  const [cardToRemove, setCardToRemove] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [isLoadingCardDeletion, setisLoadingCardDeletion] =
-    React.useState(false);
-  const [isLoadingUserDataUpdate, setIsLoadingUserDataUpdate] =
-    React.useState(false);
-  const [isLoadingAvatarUpdate, setIsLoadingAvatarUpdate] =
-    React.useState(false);
-  const [isLoadingAddPlace, setIsLoadingAddPlace] = React.useState(false);
+  const [cards, setCards] = useState([]);
+  const [cardToRemove, setCardToRemove] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
-  React.useEffect(() => {
-    Promise.all([api.getInitialCards()])
-      .then(([initialCards]) => {
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((initialCards) => {
         setCards(initialCards);
       })
       .catch((err) => {
@@ -86,7 +78,7 @@ function App() {
   }
 
   function handleCardDelete() {
-    setisLoadingCardDeletion(true);
+    setIsLoading(true);
     api
       .deleteCard(cardToRemove._id)
       .then(() => {
@@ -96,11 +88,11 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setisLoadingCardDeletion(false));
+      .finally(() => setIsLoading(false));
   }
 
   function handleUpdateUser({ name, about }) {
-    setIsLoadingUserDataUpdate(true);
+    setIsLoading(true);
     api
       .updateUserInfo(name, about)
       .then((userData) => {
@@ -111,12 +103,12 @@ function App() {
         console.log(err);
       })
       .finally(() => {
-        setIsLoadingUserDataUpdate(false);
+        setIsLoading(false);
       });
   }
 
   function handleUpdateAvatar({ avatar }) {
-    setIsLoadingAvatarUpdate(true);
+    setIsLoading(true);
     api
       .updateUserAvatar(avatar)
       .then((userData) => {
@@ -127,12 +119,12 @@ function App() {
         console.log(err);
       })
       .finally(() => {
-        setIsLoadingAvatarUpdate(false);
+        setIsLoading(false);
       });
   }
 
   function handleAddPlaceSubmit({ title, link }) {
-    setIsLoadingAddPlace(true);
+    setIsLoading(true);
     api
       .addNewCard(title, link)
       .then((newCard) => {
@@ -143,11 +135,11 @@ function App() {
         console.log(err);
       })
       .finally(() => {
-        setIsLoadingAddPlace(false);
+        setIsLoading(false);
       });
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     api
       .getUserData()
       .then((userData) => {
@@ -160,13 +152,13 @@ function App() {
   }, []);
 
   //Handle esc click
-  const closeByEsc = React.useCallback((event) => {
+  const closeByEsc = useCallback((event) => {
     if (event.key === "Escape") {
       closeAllPopups();
     }
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.addEventListener("keydown", closeByEsc, false);
     return () => {
       document.removeEventListener("keydown", closeByEsc, false);
@@ -192,26 +184,26 @@ function App() {
           isOpened={isEditProfilePopupOpen}
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
-          isLoading={isLoadingUserDataUpdate}
+          isLoading={isLoading}
         />
         <AddPlacePopup
           isOpened={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
-          isLoading={isLoadingAddPlace}
+          isLoading={isLoading}
         />
         <EditAvatarPopup
           isOpened={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
-          isLoading={isLoadingAvatarUpdate}
+          isLoading={isLoading}
         />
         <ImagePopup card={selectedCard} onClose={closeAllPopups} />
         <DeletionConfirmationPopup
           isOpened={isCardDeletePopupOpen}
           onClose={closeAllPopups}
           onSubmit={handleCardDelete}
-          isLoading={isLoadingCardDeletion}
+          isLoading={isLoading}
         />
       </div>
     </CurrentUserContext.Provider>
