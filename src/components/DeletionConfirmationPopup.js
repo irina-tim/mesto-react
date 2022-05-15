@@ -13,6 +13,7 @@ function DeletionConfirmationPopup(props) {
       title={"Вы уверены?"}
       submitButtonText={props.isLoading ? "Удаление..." : "Да"}
       onSubmit={handleSubmit}
+      isSubmitButtonEnabled={true}
     />
   );
 }
